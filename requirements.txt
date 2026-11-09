@@ -1,0 +1,8 @@
+# Para los scripts propios (KnoxMap trae los suyos en su .venv).
+osmium
+lxml
+pyproj
+shapely
+networkx
+numpy
+pillow

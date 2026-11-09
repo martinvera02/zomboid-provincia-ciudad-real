@@ -1,0 +1,198 @@
+﻿=====================================================================
+  PROVINCIA DE CIUDAD REAL  -  mapa para Project Zomboid (Build 42)
+  Beta 1
+=====================================================================
+
+17 pueblos reales de la provincia de Ciudad Real a escala real, con
+sus calles y edificios sacados de OpenStreetMap y del Catastro, unidos
+por carreteras:
+
+  Ciudad Real (con Miguelturra), Puertollano, Almagro, Bolaños de
+  Calatrava, Daimiel, Malagón, Argamasilla de Calatrava, Piedrabuena,
+  Poblete, Alcolea de Calatrava, Villamayor de Calatrava, Corral de
+  Calatrava, Cañada de Calatrava, Caracuel de Calatrava, Villanueva
+  de los Infantes, Villahermosa y Horcajo de los Montes.
+
+Los pueblos están a tamaño real (1 tile = 2 metros). Las distancias
+entre ellos están acortadas a menos de la mitad para que se pueda ir
+de uno a otro en un rato: de Ciudad Real a Almagro hay unos 9 km de
+carretera en el juego.
+
+El mapa va en 41 mods: uno por pueblo y uno por cada carretera (o
+tramo de carretera) entre pueblos. Hay que tenerlos TODOS activados.
+El instalador lo hace por ti.
+
+
+---------------------------------------------------------------------
+1. LO QUE NECESITAS
+---------------------------------------------------------------------
+
+- Project Zomboid en Build 42. En la versión 41 estos mapas no
+  funcionan. En Steam: clic derecho en Project Zomboid > Propiedades >
+  Betas, y elige la rama de Build 42 (unstable) si no la tienes ya.
+
+- El mod "Erika's Tiles" del Steam Workshop. Es OBLIGATORIO: los
+  edificios usan sus escaparates, carteles y decoración. Sin él verás
+  paredes y tiendas por las que se ve a través.
+  Suscríbete aquí:
+  https://steamcommunity.com/workshop/filedetails/?id=3346506593
+
+- Espacio en disco: entre 1 y 2 GB (lo que ocupa la carpeta "mods"
+  del zip descomprimido).
+
+- Memoria: el mapa es grande. Mira el apartado 4, es importante.
+
+
+---------------------------------------------------------------------
+2. INSTALACIÓN AUTOMÁTICA (recomendada)
+---------------------------------------------------------------------
+
+1. Cierra Project Zomboid si lo tienes abierto.
+2. Descomprime el zip entero en una carpeta cualquiera (por ejemplo
+   en el Escritorio). No lo ejecutes desde dentro del zip.
+3. Haz doble clic en  INSTALAR.bat
+   - Si Windows muestra "Windows protegió su PC", pulsa
+     "Más información" y luego "Ejecutar de todas formas".
+4. El instalador:
+   - copia los 41 mods a tu carpeta de mods
+     (C:\Users\<tu usuario>\Zomboid\mods),
+   - y los deja ACTIVADOS, junto con Erika's Tiles, sin tocar el
+     resto de mods que ya tengas activados. Antes hace una copia de
+     seguridad de tu lista de mods (default.txt.antes_provincia_cr).
+5. Cuando diga "Instalación terminada", ya puedes abrir el juego.
+
+Si tu carpeta de Zomboid no está en el sitio de siempre, el
+instalador te preguntará dónde está.
+
+
+---------------------------------------------------------------------
+3. INSTALACIÓN A MANO (si prefieres no usar el instalador)
+---------------------------------------------------------------------
+
+1. Copia las 41 carpetas que hay dentro de la carpeta "mods" del zip
+   a:   C:\Users\<tu usuario>\Zomboid\mods
+   Cada carpeta tiene que quedar directamente dentro de "mods", por
+   ejemplo:   ...\Zomboid\mods\CiudadReal\42\mod.info
+   (no  ...\Zomboid\mods\mods\CiudadReal\...)
+2. Abre el juego > Mods, y activa Erika's Tiles y los 41 mods:
+   todos los pueblos y todos los que empiezan por "Enlace_" y
+   "Cruce_". Si falta alguno, en el juego habrá un trozo de mundo
+   vacío en su sitio.
+3. Si el juego pide reiniciar, reinicia.
+
+
+---------------------------------------------------------------------
+4. MEMORIA (hazlo, o el juego se puede cerrar solo)
+---------------------------------------------------------------------
+
+Project Zomboid usa por defecto 3 GB de memoria, y con un mapa de este
+tamaño se queda corto: el mundo se rompe, va lento y el juego se
+cierra. Para darle más:
+
+1. En Steam: clic derecho en Project Zomboid > Administrar >
+   Ver archivos locales.
+2. Abre el archivo  ProjectZomboid64.json  con el Bloc de notas.
+3. Busca la línea   "-Xmx3g",   y cámbiala por:
+     "-Xmx8g",    si tu PC tiene 16 GB de RAM
+     "-Xmx12g",   si tiene 32 GB o más
+   (No pongas más de la mitad de la RAM que tengas.)
+4. Guarda. Ojo: cuando Steam actualiza o verifica el juego, puede
+   volver a dejarlo en 3g; compruébalo después de cada actualización.
+
+
+---------------------------------------------------------------------
+5. EMPEZAR A JUGAR
+---------------------------------------------------------------------
+
+1. Partida NUEVA. El mapa no se puede añadir a una partida que ya
+   existía: se mezclarían zonas viejas y nuevas y daría fallos raros.
+2. En la pantalla de ubicación de inicio (donde salen Muldraugh,
+   Riverside, Rosewood...) aparecen los pueblos de la provincia.
+   Para empezar, Ciudad Real o Almagro son los más completos.
+   (También pueden salir como opción los mapas de carretera,
+   "Enlace_..." y "Cruce_...": empiezas en una casa de campo junto a
+   esa carretera.)
+3. Para explorar tranquilo la primera vez: modo Sandbox con la
+   población de zombis en "Ninguna".
+
+Consejos:
+- Fuera de los pueblos y de las carreteras no hay nada: es vacío. Las
+  carreteras entre pueblos llevan campos, bosques, setos y alguna
+  casa de campo a los lados.
+- En algunos pueblos pequeños, entre la última calle y la carretera
+  hay un tramo corto de tierra (unos metros). Se puede pasar en coche.
+- El mapa de papel del juego (tecla M) muestra pueblos y carreteras.
+
+
+---------------------------------------------------------------------
+6. SI ALGO VA MAL
+---------------------------------------------------------------------
+
+El juego se cierra al cargar la partida
+  - Casi siempre es memoria: haz el apartado 4.
+  - O un mod tuyo desactualizado para tu versión de Build 42. Prueba
+    una partida solo con Erika's Tiles y los 41 mods de la provincia;
+    si así carga, ve activando tus otros mods poco a poco.
+    Pista: si en  C:\Users\<tu usuario>\Zomboid\console.txt  sale
+    "World loading could not proceed, there are script load errors",
+    el culpable es otro mod (por ejemplo, uno de recetas de alcohol
+    daba "Fluid not found: Alcohol").
+
+Se ve a través de paredes y escaparates
+  - Falta Erika's Tiles, o no está activado.
+
+Hay un hueco negro / vacío donde debería haber carretera o pueblo
+  - Falta algún mod de la provincia por activar. Comprueba en Mods que
+    están los 41 (ejecutar otra vez INSTALAR.bat lo arregla).
+
+Los pueblos no salen como ubicación de inicio
+  - Cierra el juego del todo y vuelve a abrirlo: Build 42 solo lee la
+    carpeta de mods al arrancar.
+
+Pasa algo raro en una partida que empezaste antes de instalar o
+actualizar el mapa
+  - Empieza una partida nueva. No tiene arreglo en la vieja.
+
+Multijugador / servidores: no está probado. Si lo intentas, el
+servidor y TODOS los jugadores necesitan los 41 mods y Erika's Tiles.
+
+
+---------------------------------------------------------------------
+7. DESINSTALAR
+---------------------------------------------------------------------
+
+Doble clic en  DESINSTALAR.bat : quita las 41 carpetas de tu carpeta
+de mods y los saca de tu lista de mods activos. Erika's Tiles y el
+resto de tus mods no se tocan.
+
+
+---------------------------------------------------------------------
+8. LIMITACIONES CONOCIDAS (es una beta)
+---------------------------------------------------------------------
+
+- Los edificios son edificios del juego colocados donde están los
+  reales, con su tamaño y número de plantas, pero los interiores son
+  inventados. En los cascos antiguos las manzanas no quedan cerradas
+  del todo.
+- Las carreteras entre pueblos siguen el trazado de la carretera real
+  cuando cabe; si no, van en tramos rectos.
+- Horcajo de los Montes está desplazado de su sitio para no caer
+  encima del condado de Knox del juego.
+- Faltan algunas carreteras secundarias que no cabían (por ejemplo,
+  Poblete - Cañada directa); a esos pueblos se llega por otro lado.
+
+
+---------------------------------------------------------------------
+9. CRÉDITOS Y LICENCIAS
+---------------------------------------------------------------------
+
+- Datos de mapa: (c) colaboradores de OpenStreetMap, licencia ODbL.
+  https://www.openstreetmap.org/copyright
+- Edificios: (c) Dirección General del Catastro (Ministerio de
+  Hacienda), datos INSPIRE de uso libre.
+- Generado con KnoxMap (licencia MIT), un proyecto de la comunidad.
+- Cada mod lleva su ATTRIBUTION.txt; no lo borres si compartes el
+  mapa.
+
+Este pack se comparte gratis. No es un producto oficial de The Indie
+Stone ni de Project Zomboid.

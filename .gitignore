@@ -1,0 +1,9 @@
+# Datos pesados o que se regeneran: no van al repositorio
+*.osm.pbf
+*.map
+datos/
+output/
+*.zip
+__pycache__/
+*.pyc
+.venv/

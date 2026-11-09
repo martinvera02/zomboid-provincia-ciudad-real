@@ -8,6 +8,8 @@ Uso (Windows, desde la carpeta de KnoxMap, con la ventana de KnoxMap CERRADA):
     --solo   mapas concretos separados por comas (por defecto: todos los
              pueblos del plano y todos los Enlace_* y Cruce_* generados)
     --sin-instalar   solo compila
+    --forzar  vuelve a compilar aunque ya estuviera compilado (después de
+              regenerar un pueblo o de pasar monumentos.py)
 
 Si se corta (apagas el PC, falla un mapa), vuelve a lanzarlo: los mapas ya
 compilados se saltan solos y solo se rehace lo que falte.
@@ -27,6 +29,7 @@ def main() -> int:
     ap.add_argument("layout")
     ap.add_argument("--solo", default="")
     ap.add_argument("--sin-instalar", action="store_true")
+    ap.add_argument("--forzar", action="store_true")
     args = ap.parse_args()
 
     knox = os.path.abspath(args.knox)
@@ -55,7 +58,7 @@ def main() -> int:
             map_dir = os.path.join(out, name)
             where = P.saved(map_dir) or P.project_origin(map_dir, name)
             st = client.get(f"/api/compile-status?map={name}").get_json() or {}
-            done_before = (st.get("cells", 0) > 0 and st.get("cells", 0) >= st.get("expected", 1)
+            done_before = not args.forzar and (st.get("cells", 0) > 0 and st.get("cells", 0) >= st.get("expected", 1)
                            and not st.get("failed") and P.lots_match(map_dir, where))
             if done_before:
                 print("  ya estaba compilado", flush=True)

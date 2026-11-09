@@ -37,6 +37,15 @@ NS = {
 GML_ID = "{%s}id" % NS["gml"]
 TO_WGS84 = Transformer.from_crs("EPSG:25830", "EPSG:4326", always_xy=True)
 
+# Lo que se hereda de un edificio de OSM al del Catastro que lo sustituye.
+KEEP_TAGS = {"name", "amenity", "religion", "denomination", "healthcare", "shop", "office",
+             "tourism", "historic", "leisure", "craft", "emergency", "government",
+             "heritage", "building:architecture", "start_date"}
+KEEP_PREFIXES = ("name:", "addr:")
+# Valores de building= que no dicen nada que no diga ya el Catastro.
+GENERIC_BUILDING = {None, "yes", "house", "residential", "apartments", "detached",
+                    "semidetached_house", "terrace", "roof", "construction"}
+
 # Ids nuevos, muy por encima de los de OSM, para no chocar y mantener el orden.
 NODE_ID0 = 90_000_000_000
 WAY_ID0 = 9_000_000_000
@@ -133,8 +142,12 @@ def main() -> int:
     polys = [Polygon(b["lonlat"]) for b in cat]
     tree = STRtree(polys)
 
-    # 1) Qué edificios OSM se solapan con el Catastro (hace falta su geometría).
+    # 1) Qué edificios OSM se solapan con el Catastro (hace falta su geometría),
+    #    y qué saben ellos que el Catastro no: nombre, si es una iglesia, un
+    #    hospital, una tienda... Eso pasa al edificio del Catastro que más
+    #    comparte con él, para que KnoxMap construya una iglesia como iglesia.
     drop_ways: set[int] = set()
+    inherit: dict[int, tuple[float, dict]] = {}
     fp = osmium.FileProcessor(src, osmium.osm.NODE | osmium.osm.WAY).with_locations()
     for w in fp:
         if not w.is_way() or "building" not in w.tags:
@@ -149,9 +162,31 @@ def main() -> int:
         if not p.is_valid:
             p = p.buffer(0)
         hits = tree.query(p, predicate="intersects")
-        if len(hits):
-            drop_ways.add(w.id)
-    print(f"edificios OSM sustituidos: {len(drop_ways)}")
+        if not len(hits):
+            continue
+        drop_ways.add(w.id)
+        keep = {k: v for k, v in w.tags if k in KEEP_TAGS or k.startswith(KEEP_PREFIXES)}
+        if w.tags.get("building") not in GENERIC_BUILDING:
+            keep["building"] = w.tags.get("building")
+        if not keep:
+            continue
+        for i in hits:
+            try:
+                shared = polys[i].intersection(p).area
+            except Exception:  # noqa: BLE001 - geometría rara: se ignora
+                continue
+            # Hereda si comparten al menos la mitad de uno de los dos.
+            frac = max(shared / (polys[i].area or 1), shared / (p.area or 1))
+            if frac >= 0.5 and (i not in inherit or frac > inherit[i][0]):
+                inherit[i] = (frac, keep)
+    for i, (_, keep) in inherit.items():
+        tags = dict(cat[i]["tags"])
+        tags.update({k: v for k, v in keep.items() if k != "building"})
+        if "building" in keep:
+            tags["building"] = keep["building"]
+        cat[i]["tags"] = tags
+    print(f"edificios OSM sustituidos: {len(drop_ways)}; "
+          f"edificios del Catastro con nombre o tipo heredado de OSM: {len(inherit)}")
 
     # 2) Escribir: nodos OSM + nodos nuevos, ways OSM (menos los quitados) +
     #    ways nuevos, relaciones OSM. Así el fichero sigue ordenado por tipo.

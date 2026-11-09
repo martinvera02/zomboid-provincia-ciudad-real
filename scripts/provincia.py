@@ -343,6 +343,12 @@ def main() -> int:
         try:
             if not args.solo_colocar:
                 s, w, n, e = PUEBLOS[name]
+                # KnoxMap guarda lo que leyó del .pbf junto al mapa y lo reusa
+                # al regenerar: con un .pbf nuevo hay que tirarlo o no se nota.
+                cache = os.path.join(knox, "output", name, f"{name}_osm.json.gz")
+                if os.path.exists(cache) and os.path.getmtime(cache) < os.path.getmtime(pbf):
+                    os.remove(cache)
+                    print("  (datos de OSM guardados más viejos que el .pbf: se vuelven a leer)")
                 t0 = time.time()
                 body = call("post", "/api/generate", json={
                     "south": s, "west": w, "north": n, "east": e,

@@ -12,10 +12,15 @@ Un mapa jugable de **17 pueblos reales de la provincia de Ciudad Real** para Pro
 - **Edificios del Catastro:** cada edificio tiene la huella oficial, su número real de plantas y su uso (vivienda, bloque, nave, comercio, edificio público). En Ciudad Real se pasa de unas 2.900 huellas en OpenStreetMap a unas 15.700.
 - **Carreteras entre pueblos:** siguen la forma de la carretera real (N-420, N-430, N-401, A-43, CM-412, CM-4106…), con las distancias acortadas a menos de la mitad. De Ciudad Real a Almagro hay unos 9 km en el juego, frente a 24 km reales. Llevan campos, bosques, setos y casas de campo a los lados.
 - **Cruces:** algunos pueblos se enganchan a mitad de otra carretera, como Cañada con la de Ciudad Real–Almagro.
+- **Monumentos de Ciudad Real hechos a mano:** la catedral, San Pedro, Santiago, la Merced, el ayuntamiento, el Hospital General y la Plaza Mayor, con materiales y formas parecidas a las reales (ver abajo).
 
 | Antes / después del Catastro (casco de Ciudad Real) | Junta entre Poblete, el enlace y Ciudad Real |
 |---|---|
 | ![Catastro](docs/img/catastro_antes_despues.jpg) | ![Enlace](docs/img/enlace_poblete_ciudad_real.png) |
+
+![Monumentos de Ciudad Real](docs/img/monumentos.png)
+
+*Los edificios de `monumentos.py`, dibujados con `tools/vista_tbx.py`.*
 
 ## Cómo funciona
 
@@ -45,6 +50,8 @@ Los pueblos los genera [KnoxMap](https://github.com/spytheeuclidean-a11y/knoxmap
 - **Juntas exactas** (`provincia.py`, `snap_link`). KnoxMap endereza las calles de cada pueblo y las desplaza cerca de los bordes, así que un enlace trazado sobre la carretera real llega desviado entre 150 y 250 tiles. Por eso cada enlace se engancha a las carreteras que el pueblo generado tiene de verdad en sus bordes, leídas de su `road_hierarchy.bmp`. Se eligen las dos salidas a la vez: grandes, de clase parecida (que una autovía no acabe en un callejón), cerca de la salida real y con el enlace más compacto. El desplazamiento de cada extremo se reparte a lo largo de la carretera para conservar su forma.
 - **Dos mapas no pueden compartir celda.** Cada enlace es un mapa rectangular aparte. Si la recta no cabe sin pisar otro mapa, la carretera se busca con A* por las celdas libres (penalizando los giros) y se construye en tramos rectos, cada uno su propio mapa. Los enlaces muy largos se hacen siempre así: en un solo rectángulo serían cientos de celdas de campo vacío.
 - **Cruces.** Para enganchar un pueblo a mitad de un enlace, se rehace el enlace con un ramal que sale de su carretera hasta el borde que mira al pueblo, y después se construye la carretera nueva hasta ese ramal.
+- **Monumentos** (`monumentos.py`). Se lanza después de generar y antes de compilar, y sustituye el `.tbx` de unos edificios concretos dentro de la misma parcela. Las iglesias se rehacen planta a planta: nave alta, torre con la escalera dentro y chapitel de pizarra o teja. Los muros salen de los materiales del juego, cada uno con sus huecos de ventana y sus piñones. El ayuntamiento lleva seis picos de pizarra, y el hospital y la Plaza Mayor cambian de fachada sin tocar su interior. `tools/vista_tbx.py` los dibuja en isométrico con los tiles del juego para revisarlos sin compilar.
+- **Nombres del Catastro.** Al sustituir los edificios de OSM por los del Catastro, cada huella del Catastro hereda el nombre y el tipo (iglesia, hospital, ayuntamiento…) del edificio de OSM con el que coincide. Sin eso, Ciudad Real tenía una sola iglesia.
 - **Mapa de papel.** KnoxMap dibuja el mapa del juego con la descarga de OSM, y un enlace no la tiene; sin más, solo saldrían sus casas. Al construir cada enlace se le pasa su propio dibujo, así que la carretera sale en el mapa de papel en el mismo sitio que en el suelo.
 
 ## Reproducirlo
@@ -71,8 +78,11 @@ Hace falta Windows con Project Zomboid (Build 42) y KnoxMap instalado. Su `Setup
        --cruces "CanadaDeCalatrava>CiudadReal-Almagro,Malagon>Piedrabuena-Alcolea"
    ```
 5. **Compilar e instalar:** `.venv\Scripts\python.exe <repo>\scripts\compilar.py . <repo>\data\layout.json`
-6. **Comprobar:** `python tools/check_bordes.py <KnoxMap>\output`
-7. **Empaquetar para otros jugadores:** `pack\EMPAQUETAR.bat` crea un zip con los mods instalados, el [manual de instalación](pack/contenido/LEEME%20-%20Manual%20de%20instalacion.txt) y un instalador que los copia y activa sin tocar los demás mods del jugador.
+6. **Monumentos de Ciudad Real** (antes de compilar, o después con `compilar.py --solo CiudadReal --forzar`):
+   `.venv\Scripts\python.exe <repo>\scripts\monumentos.py . --vistas vistas`.
+   `scripts/ACTUALIZAR_CIUDAD_REAL.bat` hace generar + monumentos + compilar de una vez si los scripts están en `Documentos\ProvinciaCR`.
+7. **Comprobar:** `python tools/check_bordes.py <KnoxMap>\output`
+8. **Empaquetar para otros jugadores:** `pack\EMPAQUETAR.bat` crea un zip con los mods instalados, el [manual de instalación](pack/contenido/LEEME%20-%20Manual%20de%20instalacion.txt) y un instalador que los copia y activa sin tocar los demás mods del jugador.
 
 Los pueblos y sus cajas están en `scripts/build_cr.py` (`PUEBLOS`).
 

@@ -479,6 +479,44 @@ def ayuntamiento_tbx(row, text):
     return picos(render_tbx(b, row["name"], s))
 
 
+# La comisaría provincial de la Policía Nacional, en el cruce de la Ronda de
+# Toledo con la calle Carlos López Bustos. En el Catastro son dos edificios; el
+# grande se rehace como comisaría de KnoxMap (calabozos, taquillas, armero...).
+COMISARIA = dict(nombre="Policía Nacional", lat=38.99283, lon=-3.92276, plantas=3)
+
+
+def comisaria_rows(rows):
+    found = [r for r in rows if r["name"] == COMISARIA["nombre"]]
+    if found or MAPA != "CiudadReal":
+        return found
+    # sin nombres (mapa generado con un .pbf antiguo): por su sitio
+    try:
+        from build_cr import PUEBLOS
+        from generator.rendering.projection import Projector
+        P = Projector.build(*PUEBLOS["CiudadReal"], 2.0, 0.0)
+        x, y = P.to_px(COMISARIA["lat"], COMISARIA["lon"])
+    except Exception:  # noqa: BLE001
+        return []
+    near = [r for r in rows
+            if abs(int(r["tile_x"]) + int(r["width"]) / 2 - x) < 40
+            and abs(int(r["tile_y"]) + int(r["height"]) / 2 - y) < 40]
+    near.sort(key=lambda r: -int(r["width"]) * int(r["height"]))
+    return near[:1]
+
+
+def comisaria_tbx(row, text, grande):
+    mask = huella(text)
+    H, W = len(mask), len(mask[0])
+    levels = max(int(row["levels"]), COMISARIA["plantas"]) if grande else int(row["levels"])
+    import random as _r
+    from knoxbuild import build as B, layout as L
+    from knoxbuild.settings import Settings
+    from knoxbuild.tbx import render_tbx
+    b = L.build_building(W, H, levels=levels, kind="police", seed=1840, mask=mask)
+    s = B.pick_style("police", 0, 0, _r.Random(1840), Settings())
+    return render_tbx(b, row["name"] or "Comisaría", s), levels
+
+
 def en_plaza(row) -> bool:
     from shapely.geometry import Polygon, box
     tx, ty, w, h = (int(row[k]) for k in ("tile_x", "tile_y", "width", "height"))
@@ -537,6 +575,13 @@ def main(argv=None) -> int:
     row = next((r for r in rows if r["name"] == "Ayuntamiento"), None)
     if row:
         escribir(row, ayuntamiento_tbx(row, original(row)), "piedra gris, pizarra")
+
+    print("Comisaría:")
+    comis = comisaria_rows(rows)
+    comis.sort(key=lambda r: -int(r["width"]) * int(r["height"]))
+    for i, row in enumerate(comis):
+        text, lv = comisaria_tbx(row, original(row), i == 0)
+        escribir(row, text, f"comisaría, {lv} plantas")
 
     print("Hospital General:")
     tramos = [r for r in rows if r["name"].startswith("Hospital General de Ciudad Real")]

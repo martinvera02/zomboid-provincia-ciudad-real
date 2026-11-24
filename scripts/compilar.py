@@ -6,7 +6,8 @@ Uso (Windows, desde la carpeta de KnoxMap, con la ventana de KnoxMap CERRADA):
     .venv\\Scripts\\python.exe ..\\ProvinciaCR\\compilar.py . ..\\ProvinciaCR\\layout.json
 
     --solo   mapas concretos separados por comas (por defecto: todos los
-             pueblos del plano y todos los Enlace_* y Cruce_* generados)
+             pueblos del plano y todos los Enlace_*, Cruce_* y Relleno_* generados)
+    --lista   como --solo, pero leyendo los nombres de un fichero
     --sin-instalar   solo compila
     --forzar  vuelve a compilar aunque ya estuviera compilado (después de
               regenerar un pueblo o de pasar monumentos.py)
@@ -28,6 +29,7 @@ def main() -> int:
     ap.add_argument("knox")
     ap.add_argument("layout")
     ap.add_argument("--solo", default="")
+    ap.add_argument("--lista", default="", help="fichero con los mapas separados por comas (en vez de --solo)")
     ap.add_argument("--sin-instalar", action="store_true")
     ap.add_argument("--forzar", action="store_true")
     args = ap.parse_args()
@@ -35,11 +37,13 @@ def main() -> int:
     knox = os.path.abspath(args.knox)
     layout = json.loads(open(args.layout, encoding="utf-8").read())
     out = os.path.join(knox, "output")
+    if args.lista:
+        args.solo = open(args.lista, encoding="utf-8").read().strip()
     if args.solo:
         maps = [m for m in args.solo.split(",") if m]
     else:
         maps = [t for t in layout["towns"] if os.path.isdir(os.path.join(out, t))]
-        maps += sorted(e for e in os.listdir(out) if e.startswith(("Enlace_", "Cruce_")))
+        maps += sorted(e for e in os.listdir(out) if e.startswith(("Enlace_", "Cruce_", "Relleno_")))
     missing = [m for m in maps if not os.path.isdir(os.path.join(out, m))]
     if missing:
         sys.exit(f"No están generados: {', '.join(missing)}. Lanza antes provincia.py.")

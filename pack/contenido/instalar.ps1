@@ -65,6 +65,16 @@ try {
         exit 0
     }
 
+    # Mods de una beta anterior que ya no existen (los enlaces largos de
+    # Infantes y Villahermosa): fuera, y fuera de la lista de activos.
+    $retirados = @('Enlace_Bolanos_Infantes', 'Enlace_Bolanos_Infantes_1', 'Enlace_Bolanos_Infantes_2',
+        'Enlace_Infantes_Villahermosa')
+    foreach ($id in $retirados) {
+        $dir = Join-Path $mods $id
+        if (Test-Path $dir) { Remove-Item -Recurse -Force $dir; Write-Host "Quitado $id (ya no forma parte del mapa)" }
+        $text = [regex]::Replace($text, '(?m)^\s*mod\s*=\s*' + [regex]::Escape($id) + '\s*,\s*\r?\n', '')
+    }
+
     # Copiar los mods (si ya estaban, se sustituyen por los del pack).
     Write-Host "Copiando $($pack.Count) mods a $mods ..."
     $i = 0

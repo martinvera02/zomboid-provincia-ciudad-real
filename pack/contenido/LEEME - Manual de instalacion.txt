@@ -1,6 +1,6 @@
 ﻿=====================================================================
   PROVINCIA DE CIUDAD REAL  -  mapa para Project Zomboid (Build 42)
-  Beta 1
+  Beta 2
 =====================================================================
 
 17 pueblos reales de la provincia de Ciudad Real a escala real, con
@@ -18,16 +18,37 @@ entre ellos están acortadas a menos de la mitad para que se pueda ir
 de uno a otro en un rato: de Ciudad Real a Almagro hay unos 9 km de
 carretera en el juego.
 
-El mapa va en 41 mods: uno por pueblo y uno por cada carretera (o
-tramo de carretera) entre pueblos. Hay que tenerlos TODOS activados.
-El instalador lo hace por ti.
+Entre los pueblos ya no hay vacío: el campo está relleno de cultivos,
+olivares, bosques, cortijos, aldeas con su plaza, iglesia, bar y
+tienda, y carreteras comarcales que unen unos pueblos con otros. Y
+sitios donde buscar loot:
+
+  - Las Tablas de Daimiel (lagunas, pasarelas, observatorios, el
+    Molino de Molemocho) y el Parque Nacional de Cabañeros (monte,
+    dehesa, puestos forestales con torre, aserraderos, refugios).
+  - El Aeropuerto Central de Ciudad Real: pista, terminal, torre de
+    control, hangares, bomberos, Guardia Civil y hotel.
+  - Tres bases militares, polígonos de naves, un centro comercial,
+    zonas de ocio con restaurantes y discoteca, ventas de carretera,
+    gasolineras y armerías repartidas por el mapa.
+  - En Ciudad Real: catedral, iglesias, Plaza Mayor, ayuntamiento,
+    hospital y la comisaría de la Policía Nacional.
+
+El mapa va en 75 mods: uno por pueblo, uno por cada carretera (o
+tramo de carretera) entre pueblos ("Enlace_..." y "Cruce_...") y uno
+por cada trozo de campo entre ellos ("Relleno_..."). Hay que tenerlos
+TODOS activados. El instalador lo hace por ti.
+
+Si ya tenías la Beta 1: lanza también INSTALAR.bat. Sustituye los
+mods viejos, quita los que ya no existen y activa los nuevos. Y
+empieza una partida nueva.
 
 
 ---------------------------------------------------------------------
 1. LO QUE NECESITAS
 ---------------------------------------------------------------------
 
-- Project Zomboid en Build 42. En la versión 41 estos mapas no
+- Project Zomboid en Build 42. En la versión 75 estos mapas no
   funcionan. En Steam: clic derecho en Project Zomboid > Propiedades >
   Betas, y elige la rama de Build 42 (unstable) si no la tienes ya.
 
@@ -37,7 +58,7 @@ El instalador lo hace por ti.
   Suscríbete aquí:
   https://steamcommunity.com/workshop/filedetails/?id=3346506593
 
-- Espacio en disco: entre 1 y 2 GB (lo que ocupa la carpeta "mods"
+- Espacio en disco: unos 5 GB (lo que ocupa la carpeta "mods"
   del zip descomprimido).
 
 - Memoria: el mapa es grande. Mira el apartado 4, es importante.
@@ -54,7 +75,7 @@ El instalador lo hace por ti.
    - Si Windows muestra "Windows protegió su PC", pulsa
      "Más información" y luego "Ejecutar de todas formas".
 4. El instalador:
-   - copia los 41 mods a tu carpeta de mods
+   - copia los 75 mods a tu carpeta de mods
      (C:\Users\<tu usuario>\Zomboid\mods),
    - y los deja ACTIVADOS, junto con Erika's Tiles, sin tocar el
      resto de mods que ya tengas activados. Antes hace una copia de
@@ -69,14 +90,14 @@ instalador te preguntará dónde está.
 3. INSTALACIÓN A MANO (si prefieres no usar el instalador)
 ---------------------------------------------------------------------
 
-1. Copia las 41 carpetas que hay dentro de la carpeta "mods" del zip
+1. Copia las 75 carpetas que hay dentro de la carpeta "mods" del zip
    a:   C:\Users\<tu usuario>\Zomboid\mods
    Cada carpeta tiene que quedar directamente dentro de "mods", por
    ejemplo:   ...\Zomboid\mods\CiudadReal\42\mod.info
    (no  ...\Zomboid\mods\mods\CiudadReal\...)
-2. Abre el juego > Mods, y activa Erika's Tiles y los 41 mods:
-   todos los pueblos y todos los que empiezan por "Enlace_" y
-   "Cruce_". Si falta alguno, en el juego habrá un trozo de mundo
+2. Abre el juego > Mods, y activa Erika's Tiles y los 75 mods:
+   todos los pueblos y todos los que empiezan por "Enlace_",
+   "Cruce_" y "Relleno_". Si falta alguno, en el juego habrá un trozo de mundo
    vacío en su sitio.
 3. Si el juego pide reiniciar, reinicia.
 
@@ -116,9 +137,10 @@ cierra. Para darle más:
    población de zombis en "Ninguna".
 
 Consejos:
-- Fuera de los pueblos y de las carreteras no hay nada: es vacío. Las
-  carreteras entre pueblos llevan campos, bosques, setos y alguna
-  casa de campo a los lados.
+- Por los bordes de la provincia el mundo se acaba: más allá de los
+  últimos campos no hay nada.
+- Los caminos de tierra que salen de las carreteras llevan a cortijos,
+  puestos forestales y aserraderos: merece la pena seguirlos.
 - En algunos pueblos pequeños, entre la última calle y la carretera
   hay un tramo corto de tierra (unos metros). Se puede pasar en coche.
 - El mapa de papel del juego (tecla M) muestra pueblos y carreteras.
@@ -131,7 +153,7 @@ Consejos:
 El juego se cierra al cargar la partida
   - Casi siempre es memoria: haz el apartado 4.
   - O un mod tuyo desactualizado para tu versión de Build 42. Prueba
-    una partida solo con Erika's Tiles y los 41 mods de la provincia;
+    una partida solo con Erika's Tiles y los 75 mods de la provincia;
     si así carga, ve activando tus otros mods poco a poco.
     Pista: si en  C:\Users\<tu usuario>\Zomboid\console.txt  sale
     "World loading could not proceed, there are script load errors",
@@ -143,7 +165,7 @@ Se ve a través de paredes y escaparates
 
 Hay un hueco negro / vacío donde debería haber carretera o pueblo
   - Falta algún mod de la provincia por activar. Comprueba en Mods que
-    están los 41 (ejecutar otra vez INSTALAR.bat lo arregla).
+    están los 75 (ejecutar otra vez INSTALAR.bat lo arregla).
 
 Los pueblos no salen como ubicación de inicio
   - Cierra el juego del todo y vuelve a abrirlo: Build 42 solo lee la
@@ -154,14 +176,14 @@ actualizar el mapa
   - Empieza una partida nueva. No tiene arreglo en la vieja.
 
 Multijugador / servidores: no está probado. Si lo intentas, el
-servidor y TODOS los jugadores necesitan los 41 mods y Erika's Tiles.
+servidor y TODOS los jugadores necesitan los 75 mods y Erika's Tiles.
 
 
 ---------------------------------------------------------------------
 7. DESINSTALAR
 ---------------------------------------------------------------------
 
-Doble clic en  DESINSTALAR.bat : quita las 41 carpetas de tu carpeta
+Doble clic en  DESINSTALAR.bat : quita las 75 carpetas de tu carpeta
 de mods y los saca de tu lista de mods activos. Erika's Tiles y el
 resto de tus mods no se tocan.
 
@@ -177,9 +199,12 @@ resto de tus mods no se tocan.
 - Las carreteras entre pueblos siguen el trazado de la carretera real
   cuando cabe; si no, van en tramos rectos.
 - Horcajo de los Montes está desplazado de su sitio para no caer
-  encima del condado de Knox del juego.
-- Faltan algunas carreteras secundarias que no cabían (por ejemplo,
-  Poblete - Cañada directa); a esos pueblos se llega por otro lado.
+  encima del condado de Knox del juego. Villanueva de los Infantes y
+  Villahermosa están más cerca de Almagro de lo que están de verdad.
+- Las aldeas, las ventas, las bases y el resto de sitios del campo son
+  inventados (el aeropuerto, las Tablas y Cabañeros están donde toca
+  más o menos, pero en pequeño).
+- Alguna calle de pueblo acaba de golpe en el borde del pueblo.
 
 
 ---------------------------------------------------------------------

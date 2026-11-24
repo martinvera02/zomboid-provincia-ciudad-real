@@ -5,12 +5,12 @@
 #   - los mods de la provincia que tienes instalados en Zomboid\mods
 #   - lo que hay en la carpeta "contenido" (o "pack") de al lado: manual,
 #     instalador...
-# y lo deja en el Escritorio como ProvinciaCR_beta1.zip.
+# y lo deja en el Escritorio como ProvinciaCR_beta2.zip.
 # No copia nada a carpetas temporales: escribe el zip directamente.
 param(
     [string]$Mods = (Join-Path $env:USERPROFILE 'Zomboid\mods'),
     [string]$Salida = [Environment]::GetFolderPath('Desktop'),
-    [string]$Nombre = 'ProvinciaCR_beta1.zip'
+    [string]$Nombre = 'ProvinciaCR_beta2.zip'
 )
 $ErrorActionPreference = 'Stop'
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path

@@ -74,7 +74,7 @@ Los pueblos los genera [KnoxMap](https://github.com/spytheeuclidean-a11y/knoxmap
 
 Hace falta Windows con Project Zomboid (Build 42) y KnoxMap instalado. Su `Setup.bat` saca los tiles de tu propia copia del juego. Los scripts usan el Python de KnoxMap y se lanzan desde su carpeta.
 
-1. **Datos de OpenStreetMap:** un recorte en formato PBF de [extract.bbbike.org](https://extract.bbbike.org) que cubra los pueblos. El `.pbf` ya mezclado con el Catastro que usa esta beta está en la [release beta 2](../../releases), así que puedes saltarte los pasos 1 y 2.
+1. **Datos de OpenStreetMap:** un recorte en formato PBF de [extract.bbbike.org](https://extract.bbbike.org) que cubra los pueblos. El `.pbf` ya mezclado con el Catastro que usa esta beta está en `data/provincia_osm_catastro.osm.pbf` (25 MB), así que puedes saltarte los pasos 1 y 2.
 2. **Catastro:**
    ```
    python scripts/descargar_catastro.py datos/catastro 13900 13056 13071 ...
